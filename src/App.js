@@ -1,19 +1,24 @@
-import Input from './components/Users/input';
-import './App.css';
-import ItemList from './components/ItemList'
-import { useState } from 'react';
+import React, { useState } from 'react';
+
+import AddUser from './components/Users/AddUser';
+import UsersList from './components/Users/UsersList';
+
 function App() {
-  const [enterArray,setArray]=useState([])
-  const renderUser=(uname,uage)=>{
-    setArray((prevState)=>{
-      return [...prevState,{name:uname , age:uage}]
-    })
-  }
+  const [usersList, setUsersList] = useState([]);
+
+  const addUserHandler = (uName, uAge,Ucollege) => {
+    setUsersList((prevUsersList) => {
+      return [
+        ...prevUsersList,
+        { name: uName, age: uAge, id: Math.random().toString(),college:Ucollege },
+      ];
+    });
+  };
+
   return (
-    <div className="App">
-      <h1>Lets get started</h1>
-      <Input adduser={renderUser}/>
-      <ItemList user={enterArray} />
+    <div>
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={usersList} />
     </div>
   );
 }
